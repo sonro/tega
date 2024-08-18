@@ -7,4 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/sonro/tega
+## [0.0.0] - 2024-08-18
+
+### Added
+
+- Zig build system.
+- Make build system.
+
+[Unreleased]: https://github.com/sonro/tega/compare/v0.0.0...HEAD
+[0.0.0]: https://github.com/sonro/tega/releases/tag/v0.0.0
