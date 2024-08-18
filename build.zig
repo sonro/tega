@@ -34,7 +34,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    lib.linkSystemLibrary("ncurses");
+    lib.linkSystemLibrary("ncursesw");
     lib.installHeadersDirectory(b.path("include"), "", .{});
     lib.addIncludePath(b.path("include"));
     lib.addCSourceFiles(.{ .files = src_files.slice(), .flags = &cflags });

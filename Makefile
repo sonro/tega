@@ -20,7 +20,7 @@ LIB_CFLAGS= \
 		-Wno-gnu\
 		-Wno-missing-braces\
 		-Iinclude\
-		-lncurses\
+		-lncursesw\
 		-lm\
 		-g
 
