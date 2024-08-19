@@ -92,25 +92,43 @@ typedef uint8_t TEGA_SolidityInt;
 
 // Traversability and visibility
 typedef enum TEGA_Solidity {
-    // can move but cannot see
-    // good to fill in invisible areas
-    TEGA_solidity_empty = 0,
-    // can move and can see through
-    TEGA_solidity_floor = 1,
-    // can move but cannot see through
+    // seeable, transparent, traversible
+    TEGA_solidity_floor = 0,
+    // seeable, transparent, obstructive
+    TEGA_solidity_window = 1,
+    // seeable, opaque, traversible
     TEGA_solidity_portal = 2,
-    // cannot move but can see through
-    TEGA_solidity_window = 3,
-    // cannot move but can always see
-    // good for behind walls
+    // seeable, opaque, obstructive
+    TEGA_solidity_solid = 3,
+
+    // perma visible, transparent, traversible
     TEGA_solidity_decor = 4,
-    // cannot move and cannot see through
-    // good for single tile walls
-    TEGA_solidity_solid = 5,
-    // cannot move and cannot see
-    // good to fill in unreadable areas
-    TEGA_solidity_void = 6,
+    // perma visible, transparent, obstructive
+    TEGA_solidity_prism = 5,
+    // perma visible, opaque, traversible
+    TEGA_solidity_stage = 6,
+    // perma visible, opaque, obstructive
+    TEGA_solidity_fixture = 7,
+
+    // invisible, transparent, traversible
+    TEGA_solidity_empty = 8,
+    // invisible, transparent, obstructive
+    TEGA_solidity_void = 9,
+    // invisible, opaque, traversible
+    TEGA_solidity_distortion = 10,
+    // invisible, opaque, obstructive
+    TEGA_solidity_dark_matter = 11,
 } TEGA_Solidity;
+
+bool TEGA_solidityIsSeeable(TEGA_Solidity solidity);
+bool TEGA_solidityIsPermaVisible(TEGA_Solidity solidity);
+bool TEGA_solidityIsInvisible(TEGA_Solidity solidity);
+
+bool TEGA_solidityIsTransparent(TEGA_Solidity solidity);
+bool TEGA_solidityIsOpaque(TEGA_Solidity solidity);
+
+bool TEGA_solidityIsTraversable(TEGA_Solidity solidity);
+bool TEGA_solidityIsObstructive(TEGA_Solidity solidity);
 
 // Drawable object with a variable location in a `TEGA_Map`
 typedef struct TEGA_Entity {
