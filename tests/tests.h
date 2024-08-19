@@ -8,28 +8,33 @@ typedef struct failure {
 
 [[noreturn]]
 void failExit(const Failure failure);
-
 void fail(const Failure failure);
-
+void success();
 void setTest(char *test);
 
 #define TEST(name) setTest(name)
+#define _CREATE_FAILURE(name)                                                  \
+    (Failure) {                                                                \
+        .assertion = name, .file = __FILE__, .line = __LINE__                  \
+    }
 #define EXPECT(ast)                                                            \
     if (ast) {                                                                 \
-        putchar('.');                                                          \
+        success();                                                             \
     } else {                                                                   \
-        putchar('F');                                                          \
-        const Failure failure =                                                \
-            (Failure){.assertion = #ast, .file = __FILE__, .line = __LINE__};  \
+        const Failure failure = _CREATE_FAILURE(#ast);                         \
         fail(failure);                                                         \
     }
 #define ASSERT(ast)                                                            \
     if (ast) {                                                                 \
-        putchar('.');                                                          \
+        success();                                                             \
     } else {                                                                   \
-        const Failure failure =                                                \
-            (Failure){.assertion = #ast, .file = __FILE__, .line = __LINE__};  \
+        const Failure failure = _CREATE_FAILURE(#ast);                         \
         failExit(failure);                                                     \
     }
 
-static inline void runTests() {}
+/** TEST FILES **/
+void testSolidity();
+
+static inline void runTests() {
+    testSolidity();
+}
