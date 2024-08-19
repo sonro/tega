@@ -6,11 +6,21 @@
 #include <stdint.h>
 #include <wchar.h>
 
-// tile = 1 x 1
-// chunk = 3 x 2 tiles
-// sector = 4 x 4 chunks
-// zone = 4 x 4 sectors
-// region = 4 x 4 zones
+// block = 2 x 1 tiles
+#define TEGA_block_width 2
+#define TEGA_block_height 1
+
+// chunk = 8 x 8 blocks
+#define TEGA_chunk_width 8
+#define TEGA_chunk_height 8
+#define TEGA_chunk_tile_width 16
+#define TEGA_chunk_tile_height 8
+
+// region = 4 x 4 chunks
+#define TEGA_region_width 4
+#define TEGA_region_height 4
+#define TEGA_region_tile_width 64
+#define TEGA_region_tile_height 32
 
 // Position within the terminal screen
 typedef struct TE_TermPos {
@@ -29,12 +39,38 @@ typedef struct TEGA_Id {
     const uint32_t val;
 } TEGA_Id;
 
-typedef struct TEGA_Map {
-    const TEGA_Id id;
-    int32_t width;
-    int32_t height;
-    uint8_t region_count;
-} TEGA_Map;
+// Int representation of `TEGA_Kind` for efficient memory usage
+typedef uint8_t TEGA_KindInt;
+
+// Used for type erasure
+typedef enum TEGA_Kind {
+    TEGA_kind_term_pos,
+    TEGA_kind_win_pos,
+
+    TEGA_kind_id,
+    TEGA_kind_kind,
+
+    TEGA_kind_rgb_color,
+    TEGA_kind_color_pair,
+    TEGA_kind_char,
+    TEGA_kind_char_attr,
+    TEGA_kind_view_props,
+    TEGA_kind_solidity,
+
+    TEGA_kind_entity,
+
+    TEGA_kind_tile,
+    TEGA_kind_block,
+    TEGA_kind_chunk,
+    TEGA_kind_region,
+    TEGA_kind_map,
+} TEGA_Kind;
+
+// Type erasure
+typedef struct TEGA_Type {
+    void *ptr;
+    TEGA_Kind kind;
+} TEGA_Type;
 
 // Position within a map
 typedef struct TEGA_MapPos {
@@ -64,8 +100,7 @@ typedef struct TEGA_Char {
     wchar_t val;
 } TEGA_Char;
 
-// Int representation of `TEGA_CharAttr`
-// for more efficient memory usage
+// Int representation of `TEGA_CharAttr` for efficient memory usage
 typedef uint8_t TEGA_CharAttrInt;
 
 // Character attributes
@@ -86,8 +121,7 @@ typedef struct TEGA_ViewProps {
     TEGA_Char character;
 } TEGA_ViewProps;
 
-// Int representation of `TEGA_Solidity`
-// for more efficient memory usage
+// Int representation of `TEGA_Solidity` for efficient memory usage
 typedef uint8_t TEGA_SolidityInt;
 
 // Traversability and visibility
@@ -144,3 +178,12 @@ typedef struct TEGA_Tile {
     TEGA_Solidity solidity;
     TEGA_ViewProps view;
 } TEGA_Tile;
+
+// Growable map
+typedef struct TEGA_Map {
+    const TEGA_Id id;
+    uint32_t tile_width;
+    uint32_t tile_height;
+    uint32_t region_count;
+    TEGA_Tile *tiles;
+} TEGA_Map;
