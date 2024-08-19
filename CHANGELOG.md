@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Test runner.
 - Outline tega types.
+- Specify `TEGA_Solidity` interface.
 
 ## [0.0.0] - 2024-08-18
 
