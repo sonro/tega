@@ -93,7 +93,7 @@ directory and be snake_case. Internal header files should be kept in
 
 [tega.h]: /include/tega.h
 [tega/fundamental.h]: /include/tega/fundamental.h
-[tlog.h]: /include/tega/log.h
+[tega/log.h]: /include/tega/log.h
 [tega/error.h]: /include/tega/error.h
 [tega/terminal.h]: /include/tega/terminal.h
 [tega/sync.h]: /include/tega/sync.h
