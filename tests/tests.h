@@ -7,36 +7,38 @@ typedef struct failure {
 } Failure;
 
 [[noreturn]]
-void failExit(const Failure failure);
-void fail(const Failure failure);
-void success();
-void setTest(char *test);
+void __failExit(const Failure failure);
+void __fail(const Failure failure);
+void __success();
+void __setTest(char *test);
 
-#define TEST(name) setTest(name)
-#define _CREATE_FAILURE(name)                                                  \
+#define TEST(__name) __setTest(__name)
+#define _CREATE_FAILURE(__name)                                                \
     (Failure) {                                                                \
-        .assertion = name, .file = __FILE__, .line = __LINE__                  \
+        .assertion = __name, .file = __FILE__, .line = __LINE__                \
     }
 #define EXPECT(ast)                                                            \
     if (ast) {                                                                 \
-        success();                                                             \
+        __success();                                                           \
     } else {                                                                   \
-        const Failure failure = _CREATE_FAILURE(#ast);                         \
-        fail(failure);                                                         \
+        const Failure __failure = _CREATE_FAILURE(#ast);                       \
+        __fail(__failure);                                                     \
     }
 #define ASSERT(ast)                                                            \
     if (ast) {                                                                 \
-        success();                                                             \
+        __success();                                                           \
     } else {                                                                   \
-        const Failure failure = _CREATE_FAILURE(#ast);                         \
-        failExit(failure);                                                     \
+        const Failure __failure = _CREATE_FAILURE(#ast);                       \
+        __failExit(__failure);                                                 \
     }
 
 /** TEST FILES **/
 void testSolidity();
 void testFundamental();
+void testErr();
 
 static inline void runTests() {
     testSolidity();
     testFundamental();
+    testErr();
 }

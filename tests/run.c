@@ -28,24 +28,24 @@ int main() {
     finish();
 }
 
-void setTest(char *test) {
+void __setTest(char *test) {
     test_name = test;
 }
 
-void success() {
+void __success() {
     pass_count++;
     putchar('.');
 }
 
-void fail(const Failure failure) {
+void __fail(const Failure failure) {
     printf("%sF%s", PRINT_RED, PRINT_RESET);
     const char *fail_str = formatFailure(failure);
     failureAppend(fail_str);
 }
 
 [[noreturn]]
-void failExit(const Failure failure) {
-    fail(failure);
+void __failExit(const Failure failure) {
+    __fail(failure);
     finish();
 }
 
