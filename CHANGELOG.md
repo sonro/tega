@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `TERR_Res` in `tega/err.h` for error handling.
+- `TERR_Res` in `tega/errror.h` for error handling.
 
 #### `tega/fundamental.h`
 
