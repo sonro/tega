@@ -34,7 +34,9 @@ void setTest(char *test);
 
 /** TEST FILES **/
 void testSolidity();
+void testFundamental();
 
 static inline void runTests() {
     testSolidity();
+    testFundamental();
 }

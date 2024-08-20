@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### `tega/fundamental.h`
+
+Interface for general programming utilities.
+
+- `TFUN_Bytes` a byte array-list.
+- `TFUN_BSlice` a slice of a byte array.
+- `TFUN_CString` and `TFUN_WString` standard C and wide character string
+  array-lists.
+- `TFUN_CStrSlice` and `TFUN_WStrSlice` string slices.
+
 #### Documentation
 
 - API, internal, and common developer docs in markdown format.
