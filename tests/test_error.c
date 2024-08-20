@@ -1,8 +1,8 @@
-#include <tega/err.h>
+#include <tega/error.h>
 
 #include "tests.h"
 
-void testErr() {
+void testError() {
     TEST("TERR_Res success and failure values");
     TERR_Res success = TERR_Res_success;
     TERR_Res failure = TERR_Res_failure;

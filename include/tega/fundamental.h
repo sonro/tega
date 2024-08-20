@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <wchar.h>
 
-#include "tega/err.h"
+#include "tega/error.h"
 
 // Growable byte array
 typedef struct TFUN_Bytes {

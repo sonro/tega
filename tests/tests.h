@@ -35,10 +35,10 @@ void __setTest(char *test);
 /** TEST FILES **/
 void testSolidity();
 void testFundamental();
-void testErr();
+void testError();
 
 static inline void runTests() {
     testSolidity();
     testFundamental();
-    testErr();
+    testError();
 }

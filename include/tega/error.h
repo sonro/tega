@@ -20,4 +20,5 @@ typedef uint8_t TERR_ResInt;
 typedef enum TERR_Res {
     TERR_Res_success = 0,
     TERR_Res_failure = 1,
+    TERR_Res_out_of_memory = 2,
 } TERR_Res;
