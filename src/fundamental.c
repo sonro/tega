@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "tega/fundamental.h"
 
@@ -33,4 +34,21 @@ void TFUN_Bytes_deinit(TFUN_Bytes *bytes) {
 
 void TFUN_Bytes_resetRetainCapacity(TFUN_Bytes *bytes) {
     bytes->len = 0;
+}
+
+TERR_Res TFUN_Bytes_ensureCapacity(TFUN_Bytes *bytes, uint32_t cap) {
+    if (bytes->cap >= cap) {
+        return TERR_Res_success;
+    }
+    uint8_t *new_ptr = calloc(cap, sizeof(uint8_t));
+    if (new_ptr == NULL) {
+        return TERR_Res_out_of_memory;
+    }
+    if (bytes->ptr != NULL) {
+        memcpy(new_ptr, bytes->ptr, bytes->len);
+        free(bytes->ptr);
+    }
+    bytes->ptr = new_ptr;
+    bytes->cap = cap;
+    return TERR_Res_success;
 }
