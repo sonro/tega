@@ -37,23 +37,23 @@ typedef uint8_t TEGA_KindInt;
 
 // Used for type erasure
 typedef enum TEGA_Kind {
-    TEGA_kind_id,
-    TEGA_kind_kind,
+    TEGA_Kind_id,
+    TEGA_Kind_kind,
 
-    TEGA_kind_rgb_color,
-    TEGA_kind_color_pair,
-    TEGA_kind_char,
-    TEGA_kind_char_attr,
-    TEGA_kind_view_props,
-    TEGA_kind_solidity,
+    TEGA_Kind_rgb_color,
+    TEGA_Kind_color_pair,
+    TEGA_Kind_char,
+    TEGA_Kind_char_attr,
+    TEGA_Kind_view_props,
+    TEGA_Kind_solidity,
 
-    TEGA_kind_entity,
+    TEGA_Kind_entity,
 
-    TEGA_kind_tile,
-    TEGA_kind_block,
-    TEGA_kind_chunk,
-    TEGA_kind_region,
-    TEGA_kind_map,
+    TEGA_Kind_tile,
+    TEGA_Kind_block,
+    TEGA_Kind_chunk,
+    TEGA_Kind_region,
+    TEGA_Kind_map,
 } TEGA_Kind;
 
 // Type erasure
@@ -95,13 +95,13 @@ typedef uint8_t TEGA_CharAttrInt;
 
 // Character attributes
 typedef enum TEGA_CharAttr {
-    TEGA_char_attr_normal = 0,
-    TEGA_char_attr_bold = 1,
-    TEGA_char_attr_blink = 2,
-    TEGA_char_attr_underline = 3,
-    TEGA_char_attr_reverse = 4,
-    TEGA_char_attr_dimmed = 5,
-    TEGA_char_attr_italic = 6,
+    TEGA_CharAttr_normal = 0,
+    TEGA_CharAttr_bold = 1,
+    TEGA_CharAttr_blink = 2,
+    TEGA_CharAttr_underline = 3,
+    TEGA_CharAttr_reverse = 4,
+    TEGA_CharAttr_dimmed = 5,
+    TEGA_CharAttr_italic = 6,
 } TEGA_CharAttr;
 
 // Properties required to display an object
@@ -117,42 +117,42 @@ typedef uint8_t TEGA_SolidityInt;
 // Traversability and visibility
 typedef enum TEGA_Solidity {
     // seeable, transparent, traversible
-    TEGA_solidity_floor = 0,
+    TEGA_Solidity_floor = 0,
     // seeable, transparent, obstructive
-    TEGA_solidity_window = 1,
+    TEGA_Solidity_window = 1,
     // seeable, opaque, traversible
-    TEGA_solidity_portal = 2,
+    TEGA_Solidity_portal = 2,
     // seeable, opaque, obstructive
-    TEGA_solidity_solid = 3,
+    TEGA_Solidity_solid = 3,
 
     // perma visible, transparent, traversible
-    TEGA_solidity_decor = 4,
+    TEGA_Solidity_decor = 4,
     // perma visible, transparent, obstructive
-    TEGA_solidity_prism = 5,
+    TEGA_Solidity_prism = 5,
     // perma visible, opaque, traversible
-    TEGA_solidity_stage = 6,
+    TEGA_Solidity_stage = 6,
     // perma visible, opaque, obstructive
-    TEGA_solidity_fixture = 7,
+    TEGA_Solidity_fixture = 7,
 
     // invisible, transparent, traversible
-    TEGA_solidity_empty = 8,
+    TEGA_Solidity_empty = 8,
     // invisible, transparent, obstructive
-    TEGA_solidity_void = 9,
+    TEGA_Solidity_void = 9,
     // invisible, opaque, traversible
-    TEGA_solidity_distortion = 10,
+    TEGA_Solidity_distortion = 10,
     // invisible, opaque, obstructive
-    TEGA_solidity_dark_matter = 11,
+    TEGA_Solidity_dark_matter = 11,
 } TEGA_Solidity;
 
-bool TEGA_solidityIsSeeable(TEGA_Solidity solidity);
-bool TEGA_solidityIsPermaVisible(TEGA_Solidity solidity);
-bool TEGA_solidityIsInvisible(TEGA_Solidity solidity);
+bool TEGA_Solidity_isSeeable(TEGA_Solidity solidity);
+bool TEGA_Solidity_isPermaVisible(TEGA_Solidity solidity);
+bool TEGA_Solidity_isInvisible(TEGA_Solidity solidity);
 
-bool TEGA_solidityIsTransparent(TEGA_Solidity solidity);
-bool TEGA_solidityIsOpaque(TEGA_Solidity solidity);
+bool TEGA_Solidity_isTransparent(TEGA_Solidity solidity);
+bool TEGA_Solidity_isOpaque(TEGA_Solidity solidity);
 
-bool TEGA_solidityIsTraversable(TEGA_Solidity solidity);
-bool TEGA_solidityIsObstructive(TEGA_Solidity solidity);
+bool TEGA_Solidity_isTraversable(TEGA_Solidity solidity);
+bool TEGA_Solidity_isObstructive(TEGA_Solidity solidity);
 
 // Drawable object with a variable location in a `TEGA_Map`
 typedef struct TEGA_Entity {
