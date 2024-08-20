@@ -25,6 +25,11 @@ typedef struct TFUN_BSlice {
 } TFUN_BSlice;
 
 TFUN_Bytes TFUN_Bytes_new();
+
+/**
+ * - If `cap` is 0 there will be no allocation
+ * - If `bytes` was previously initialized it will be reset
+ */
 TERR_Res TFUN_Bytes_initWithCapacity(TFUN_Bytes *bytes, uint32_t cap);
 void TFUN_Bytes_deinit(TFUN_Bytes *bytes);
 void TFUN_Bytes_resetRetainCapacity(TFUN_Bytes *bytes);
@@ -55,6 +60,11 @@ typedef struct TFUN_CStrSlice {
 } TFUN_CStrSlice;
 
 TFUN_CString TFUN_CString_new();
+
+/**
+ * - If `cap` is 0 there will be no allocation
+ * - If `string` was previously initialized it will be reset
+ */
 TERR_Res TFUN_CString_initWithCapacity(TFUN_CString *string, uint32_t cap);
 void TFUN_CString_deinit(TFUN_CString *string);
 void TFUN_CString_resetRetainCapacity(TFUN_CString *string);
@@ -87,6 +97,11 @@ typedef struct TFUN_WStrSlice {
 } TFUN_WStrSlice;
 
 TFUN_WString TFUN_WString_new();
+
+/**
+ * - If `cap` is 0 there will be no allocation
+ * - If `string` was previously initialized it will be reset
+ */
 TERR_Res TFUN_WString_initWithCapacity(TFUN_WString *string, uint32_t cap);
 void TFUN_WString_deinit(TFUN_WString *string);
 void TFUN_WString_resetRetainCapacity(TFUN_WString *string);
