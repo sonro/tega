@@ -22,6 +22,13 @@ Interface for general programming utilities.
 - `TFUN_CStrSlice` and `TFUN_WStrSlice` string slices.
 - Saturated add macros `TFUN_addSaturate`: signed, unsigned , and
   unsigned type versions.
+- Result types for associated `get` functions.
+  - `TFUN_ByteRes`
+  - `TFUN_BSliceRes`
+  - `TFUN_CharRes`
+  - `TFUN_CStrRes`
+  - `TFUN_WCharRes`
+  - `TFUN_WStrRes`
 
 #### Documentation
 

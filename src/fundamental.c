@@ -5,6 +5,51 @@
 
 static uint32_t growCapacity(uint32_t current, uint32_t minimum);
 
+TFUN_ByteRes TFUN_ByteRes_new() {
+    TFUN_ByteRes res;
+    res.byte = 0;
+    res.err = TERR_Res_success;
+    return res;
+}
+
+TFUN_BSliceRes TFUN_BSliceRes_new() {
+    TFUN_BSliceRes slice;
+    slice.ptr = NULL;
+    slice.len = 0;
+    slice.err = TERR_Res_success;
+    return slice;
+}
+
+TFUN_CharRes TFUN_CharRes_new() {
+    TFUN_CharRes res;
+    res.ch = 0;
+    res.err = TERR_Res_success;
+    return res;
+}
+
+TFUN_CStrRes TFUN_CStrRes_new() {
+    TFUN_CStrRes res;
+    res.ptr = NULL;
+    res.len = 0;
+    res.err = TERR_Res_success;
+    return res;
+}
+
+TFUN_WCharRes TFUN_WCharRes_new() {
+    TFUN_WCharRes res;
+    res.ch = 0;
+    res.err = TERR_Res_success;
+    return res;
+}
+
+TFUN_WStrRes TFUN_WStrRes_new() {
+    TFUN_WStrRes res;
+    res.ptr = NULL;
+    res.len = 0;
+    res.err = TERR_Res_success;
+    return res;
+}
+
 TFUN_Bytes TFUN_Bytes_new() {
     TFUN_Bytes bytes;
     bytes.ptr = NULL;
@@ -54,6 +99,26 @@ TERR_Res TFUN_Bytes_ensureCapacity(TFUN_Bytes *bytes, uint32_t cap) {
     bytes->ptr = new_ptr;
     bytes->cap = cap;
     return TERR_Res_success;
+}
+
+TERR_Res TFUN_Bytes_append(TFUN_Bytes *bytes, uint8_t b) {
+    TERR_Res res = TFUN_Bytes_ensureCapacity(bytes, bytes->len + 1);
+    if (res != TERR_Res_success) {
+        return res;
+    }
+    bytes->ptr[bytes->len] = b;
+    bytes->len += 1;
+    return TERR_Res_success;
+}
+
+TFUN_ByteRes TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index) {
+    TFUN_ByteRes res = TFUN_ByteRes_new();
+    if (index >= bytes->len) {
+        res.err = TERR_Res_out_of_bounds;
+    } else {
+        res.byte = bytes->ptr[index];
+    }
+    return res;
 }
 
 static uint32_t growCapacity(uint32_t current, uint32_t minimum) {

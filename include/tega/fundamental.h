@@ -50,6 +50,20 @@ typedef struct TFUN_BSlice {
     uint32_t len;
 } TFUN_BSlice;
 
+typedef struct TFUN_ByteRes {
+    uint8_t byte;
+    TERR_ResInt err;
+} TFUN_ByteRes;
+
+typedef struct TFUN_BSliceRes {
+    const uint8_t *ptr;
+    uint32_t len;
+    TERR_Res err;
+} TFUN_BSliceRes;
+
+TFUN_ByteRes TFUN_ByteRes_new();
+TFUN_BSliceRes TFUN_BSliceRes_new();
+
 TFUN_Bytes TFUN_Bytes_new();
 
 /**
@@ -64,9 +78,12 @@ TERR_Res TFUN_Bytes_append(TFUN_Bytes *bytes, uint8_t byte);
 void TFUN_Bytes_appendUnsafe(TFUN_Bytes *bytes, uint8_t byte);
 TERR_Res TFUN_Bytes_appendSlice(TFUN_Bytes *bytes, const TFUN_BSlice slice);
 void TFUN_Bytes_appendSliceUnsafe(TFUN_Bytes *bytes, const TFUN_BSlice slice);
-uint8_t TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index);
-TFUN_BSlice TFUN_Bytes_slice(const TFUN_Bytes *bytes, uint32_t start,
-                             uint32_t end);
+TFUN_ByteRes TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index);
+uint8_t TFUN_Bytes_getUnsafe(const TFUN_Bytes *bytes, uint32_t index);
+TFUN_BSliceRes TFUN_Bytes_slice(const TFUN_Bytes *bytes, uint32_t start,
+                                uint32_t end);
+TFUN_BSlice TFUN_Bytes_sliceUnsafe(const TFUN_Bytes *bytes, uint32_t start,
+                                   uint32_t end);
 
 /**
  * Growable standard C string
@@ -85,6 +102,20 @@ typedef struct TFUN_CStrSlice {
     uint32_t len;
 } TFUN_CStrSlice;
 
+typedef struct TFUN_CharRes {
+    char ch;
+    TERR_ResInt err;
+} TFUN_CharRes;
+
+typedef struct TFUN_CStrRes {
+    const char *ptr;
+    uint32_t len;
+    TERR_Res err;
+} TFUN_CStrRes;
+
+TFUN_CharRes TFUN_CharRes_new();
+TFUN_CStrRes TFUN_CStrRes_new();
+
 TFUN_CString TFUN_CString_new();
 
 /**
@@ -101,11 +132,16 @@ TERR_Res TFUN_CString_appendSlice(TFUN_CString *string,
                                   const TFUN_CStrSlice slice);
 void TFUN_CString_appendSliceUnsafe(TFUN_CString *string,
                                     const TFUN_CStrSlice slice);
-char TFUN_CString_get(const TFUN_CString *string, uint32_t index);
-TFUN_CStrSlice TFUN_CString_slice(const TFUN_CString *string, uint32_t start,
-                                  uint32_t end);
-TFUN_BSlice TFUN_CString_bSlice(const TFUN_CString *string, uint32_t start,
+TFUN_CharRes TFUN_CString_get(const TFUN_CString *string, uint32_t index);
+char TFUN_CString_getUnsafe(const TFUN_CString *string, uint32_t index);
+TFUN_CStrRes TFUN_CString_slice(const TFUN_CString *string, uint32_t start,
                                 uint32_t end);
+TFUN_CStrSlice TFUN_CString_sliceUnsafe(const TFUN_CString *string,
+                                        uint32_t start, uint32_t end);
+TFUN_BSliceRes TFUN_CString_bSlice(const TFUN_CString *string, uint32_t start,
+                                   uint32_t end);
+TFUN_BSlice TFUN_CString_bSliceUnsafe(const TFUN_CString *string,
+                                      uint32_t start, uint32_t end);
 // Zero copy but `string` will no longer be valid after this call
 TFUN_Bytes TFUN_CString_toBytes(TFUN_CString *string);
 
@@ -121,6 +157,20 @@ typedef struct TFUN_WStrSlice {
     const wchar_t *ptr;
     uint32_t len;
 } TFUN_WStrSlice;
+
+typedef struct TFUN_WCharRes {
+    wchar_t ch;
+    TERR_Res err;
+} TFUN_WCharRes;
+
+typedef struct TFUN_WStrRes {
+    const wchar_t *ptr;
+    uint32_t len;
+    TERR_Res err;
+} TFUN_WStrRes;
+
+TFUN_WCharRes TFUN_WCharRes_new();
+TFUN_WStrRes TFUN_WStrRes_new();
 
 TFUN_WString TFUN_WString_new();
 
@@ -138,10 +188,15 @@ TERR_Res TFUN_WString_appendSlice(TFUN_WString *string,
                                   const TFUN_WStrSlice slice);
 void TFUN_WString_appendSliceUnsafe(TFUN_WString *string,
                                     const TFUN_WStrSlice slice);
-wchar_t TFUN_WString_get(const TFUN_WString *string, uint32_t index);
-TFUN_WStrSlice TFUN_WString_slice(const TFUN_WString *string, uint32_t start,
-                                  uint32_t end);
-TFUN_BSlice TFUN_WString_bSlice(const TFUN_WString *string, uint32_t start,
+TFUN_WCharRes TFUN_WString_get(const TFUN_WString *string, uint32_t index);
+wchar_t TFUN_WString_getUnsafe(const TFUN_WString *string, uint32_t index);
+TFUN_WStrRes TFUN_WString_slice(const TFUN_WString *string, uint32_t start,
                                 uint32_t end);
+TFUN_WStrSlice TFUN_WString_sliceUnsafe(const TFUN_WString *string,
+                                        uint32_t start, uint32_t end);
+TFUN_BSliceRes TFUN_WString_bSlice(const TFUN_WString *string, uint32_t start,
+                                   uint32_t end);
+TFUN_BSlice TFUN_WString_bSliceUnsafe(const TFUN_WString *string,
+                                      uint32_t start, uint32_t end);
 // Zero copy but `string` will no longer be valid after this call
 TFUN_Bytes TFUN_WString_toBytes(TFUN_WString *string);

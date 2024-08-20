@@ -3,5 +3,6 @@
 
 void testFundamental() {
     testTFUN_addSaturate();
+    testTFUN_ResTypes();
     testTFUN_Bytes();
 }
