@@ -78,9 +78,25 @@ then the type name is prefixed. e.g. `void TEGA_beAwesome()`,
 
 A private function should be `static` e.g. `static void callMe()`.
 
+Functions that create a new object should just have the name `new` after
+any prefixes. e.g. `TSYN_MspcChannel *TSYN_MspcChannel_new()`.
+
+Functions that initialize an object should just have the name `init`
+after any prefixes e.g.
+`void TSYN_MspcChannel_init(TSYN_MspcChannel *channel)`.
+
+Functions that make assumtions about safety should use the `Unsafe`
+suffix e.g.
+`void TFUN_Bytes_appendUnsafe(TFUN_Bytes *bytes, uint8_t byte)`.
+
+Functions that destroy an object should just have the name `deinit`
+after any prefixes e.g.
+`void TSYN_MspcChannel_deinit(TSYN_MspcChannel *channel)`
+
 ## Variables
 
-Variable names are snake_case and are _never_ namespaced.
+Variable names, including function parameters, are snake_case and are
+_never_ namespaced.
 
 ## Files
 
