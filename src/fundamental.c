@@ -21,7 +21,7 @@ TERR_Res TFUN_Bytes_initWithCapacity(TFUN_Bytes *bytes, uint32_t cap) {
     bytes->ptr = malloc(cap);
     bytes->len = 0;
     bytes->cap = cap;
-    return TERR_Res_success;
+    return bytes->ptr != NULL ? TERR_Res_success : TERR_Res_out_of_memory;
 }
 
 void TFUN_Bytes_deinit(TFUN_Bytes *bytes) {
