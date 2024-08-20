@@ -11,6 +11,32 @@
 
 #include "tega/error.h"
 
+#define TFUN_addSaturateUnsigned(_max, _a, _b)                                 \
+    ({                                                                         \
+        __typeof__(_a) __a = (_a);                                             \
+        __typeof__(_b) __b = (_b);                                             \
+        __typeof__(_max) __max = (_max);                                       \
+        (__a > __max - __b) ? __max : (__a + __b);                             \
+    })
+
+#define TFUN_addSaturate(_min, _max, _a, _b)                                   \
+    ({                                                                         \
+        __typeof__(_a) __a = (_a);                                             \
+        __typeof__(_b) __b = (_b);                                             \
+        __typeof__(_min) __min = (_min);                                       \
+        __typeof__(_max) __max = (_max);                                       \
+        __typeof__(_a + _b) __result = __a + __b;                              \
+        (__b > 0 && __a > __max - __b)   ? __max                               \
+        : (__b < 0 && __a < __min - __b) ? __min                               \
+                                         : __result;                           \
+    })
+
+#define TFUN_addSaturateTypeUnsigned(_type, _a, _b)                            \
+    ({                                                                         \
+        _type _max = (_type)~0;                                                \
+        TFUN_addSaturateUnsigned(_max, (_a), (_b));                            \
+    })
+
 // Growable byte array
 typedef struct TFUN_Bytes {
     uint8_t *ptr;
