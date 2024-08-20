@@ -1,3 +1,8 @@
+
+/** ========================================================
+ * TEGA: Terminal Game Engine
+ * ========================================================*/
+
 #pragma once
 
 #define _XOPEN_SOURCE_EXTENDED
@@ -22,18 +27,6 @@
 #define TEGA_region_tile_width 64
 #define TEGA_region_tile_height 32
 
-// Position within the terminal screen
-typedef struct TE_TermPos {
-    int32_t x;
-    int32_t y;
-} TE_TermPos;
-
-// Position within a window
-typedef struct TE_WinPos {
-    int32_t x;
-    int32_t y;
-} TE_WinPos;
-
 // Not guaranteed to be unique
 typedef struct TEGA_Id {
     const uint32_t val;
@@ -44,9 +37,6 @@ typedef uint8_t TEGA_KindInt;
 
 // Used for type erasure
 typedef enum TEGA_Kind {
-    TEGA_kind_term_pos,
-    TEGA_kind_win_pos,
-
     TEGA_kind_id,
     TEGA_kind_kind,
 
