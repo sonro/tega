@@ -1,7 +1,7 @@
 # TEGA Developer Documentation
 
-[Api Docs](api/README.md)
-[Internal Dev Docs](internalREADME.md)
+- [Api Docs](api/README.md)
+- [Internal Dev Docs](internal/README.md)
 
 ## Common
 
