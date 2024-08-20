@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-08-20
+
 ### Added
 
 - `TERR_Res` in `tega/errror.h` for error handling.
@@ -61,6 +63,7 @@ Interface for general programming utilities.
 - Zig build system.
 - Make build system.
 
-[Unreleased]: https://github.com/sonro/tega/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/sonro/tega/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/sonro/tega/releases/tag/v0.1.0
 [0.0.1]: https://github.com/sonro/tega/releases/tag/v0.0.1
 [0.0.0]: https://github.com/sonro/tega/releases/tag/v0.0.0

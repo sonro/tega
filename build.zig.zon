@@ -1,12 +1,14 @@
 .{
     .name = "tega",
-    .version = "0.0.0",
+    .version = "0.1.0",
     .dependencies = .{},
     .paths = .{
         "Makefile",
         "build.zig",
         "build.zig.zon",
+        "docs",
         "src",
+        "include",
         "tests",
         "LICENSE",
         "README.md",
