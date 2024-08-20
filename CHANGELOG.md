@@ -20,6 +20,8 @@ Interface for general programming utilities.
 - `TFUN_CString` and `TFUN_WString` standard C and wide character string
   array-lists.
 - `TFUN_CStrSlice` and `TFUN_WStrSlice` string slices.
+- Saturated add macros `TFUN_addSaturate`: signed, unsigned , and
+  unsigned type versions.
 
 #### Documentation
 
