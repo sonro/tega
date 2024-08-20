@@ -110,17 +110,17 @@ static void bytesEnsureCapacity() {
     ASSERT(res == TERR_Res_success);
     EXPECT(bytes.ptr != NULL);
     EXPECT(bytes.len == 0);
-    EXPECT(bytes.cap == 1);
+    EXPECT(bytes.cap == 8);
 
-    TEST("TFUN_Bytes_ensureCapacity existing cap 1 new cap 0");
+    TEST("TFUN_Bytes_ensureCapacity existing cap 8 new cap 0");
     uint8_t *old_ptr = bytes.ptr;
     res = TFUN_Bytes_ensureCapacity(&bytes, 0);
     ASSERT(res == TERR_Res_success);
     EXPECT(bytes.ptr == old_ptr);
     EXPECT(bytes.len == 0);
-    EXPECT(bytes.cap == 1);
+    EXPECT(bytes.cap == 8);
 
-    TEST("TFUN_Bytes_ensureCapacity existing cap 1 new cap 0 null ptr");
+    TEST("TFUN_Bytes_ensureCapacity existing cap 8 new cap 0 null ptr");
     // try to not get back the same pointer
     void *random_ptr = malloc(1);
     bytes.ptr = NULL;
@@ -128,29 +128,29 @@ static void bytesEnsureCapacity() {
     ASSERT(res == TERR_Res_success);
     EXPECT(bytes.ptr != old_ptr);
     EXPECT(bytes.len == 0);
-    EXPECT(bytes.cap == 1);
+    EXPECT(bytes.cap == 8);
 
     free(old_ptr);
     free(random_ptr);
 
-    TEST("TFUN_Bytes_ensureCapacity existing cap 1 new cap 1");
+    TEST("TFUN_Bytes_ensureCapacity existing cap 8 new cap 8");
     old_ptr = bytes.ptr;
     random_ptr = malloc(1);
-    res = TFUN_Bytes_ensureCapacity(&bytes, 1);
+    res = TFUN_Bytes_ensureCapacity(&bytes, 8);
     ASSERT(res == TERR_Res_success);
     EXPECT(bytes.ptr == old_ptr);
     EXPECT(bytes.len == 0);
-    EXPECT(bytes.cap == 1);
+    EXPECT(bytes.cap == 8);
 
     free(random_ptr);
 
-    TEST("TFUN_Bytes_ensureCapacity existing cap 1 new cap 2");
+    TEST("TFUN_Bytes_ensureCapacity existing cap 8 new cap 10");
     random_ptr = malloc(1);
-    res = TFUN_Bytes_ensureCapacity(&bytes, 2);
+    res = TFUN_Bytes_ensureCapacity(&bytes, 10);
     ASSERT(res == TERR_Res_success);
     EXPECT(bytes.ptr != old_ptr);
     EXPECT(bytes.len == 0);
-    EXPECT(bytes.cap == 2);
+    EXPECT(bytes.cap == 20);
 
     free(bytes.ptr);
     free(random_ptr);

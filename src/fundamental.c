@@ -3,6 +3,8 @@
 
 #include "tega/fundamental.h"
 
+static uint32_t growCapacity(uint32_t current, uint32_t minimum);
+
 TFUN_Bytes TFUN_Bytes_new() {
     TFUN_Bytes bytes;
     bytes.ptr = NULL;
@@ -40,6 +42,7 @@ TERR_Res TFUN_Bytes_ensureCapacity(TFUN_Bytes *bytes, uint32_t cap) {
     if (bytes->cap >= cap) {
         return TERR_Res_success;
     }
+    cap = growCapacity(bytes->cap, cap);
     uint8_t *new_ptr = calloc(cap, sizeof(uint8_t));
     if (new_ptr == NULL) {
         return TERR_Res_out_of_memory;
@@ -51,4 +54,14 @@ TERR_Res TFUN_Bytes_ensureCapacity(TFUN_Bytes *bytes, uint32_t cap) {
     bytes->ptr = new_ptr;
     bytes->cap = cap;
     return TERR_Res_success;
+}
+
+static uint32_t growCapacity(uint32_t current, uint32_t minimum) {
+    uint32_t new = current;
+    while (true) {
+        new = TFUN_addSaturateTypeUnsigned(uint32_t, new, new / 2 + 8);
+        if (new >= minimum) {
+            return new;
+        }
+    }
 }
