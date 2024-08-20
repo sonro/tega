@@ -24,7 +24,7 @@ TERR_Res TFUN_Bytes_initWithCapacity(TFUN_Bytes *bytes, uint32_t cap) {
     return TERR_Res_success;
 }
 
-void TFUN_Bytes_free(TFUN_Bytes *bytes) {
+void TFUN_Bytes_deinit(TFUN_Bytes *bytes) {
     if (bytes->ptr != NULL) {
         free(bytes->ptr);
     }

@@ -26,7 +26,7 @@ typedef struct TFUN_BSlice {
 
 TFUN_Bytes TFUN_Bytes_new();
 TERR_Res TFUN_Bytes_initWithCapacity(TFUN_Bytes *bytes, uint32_t cap);
-void TFUN_Bytes_free(TFUN_Bytes *bytes);
+void TFUN_Bytes_deinit(TFUN_Bytes *bytes);
 void TFUN_Bytes_resetRetainCapacity(TFUN_Bytes *bytes);
 TERR_Res TFUN_Bytes_ensureCapacity(TFUN_Bytes *bytes, uint32_t cap);
 TERR_Res TFUN_Bytes_append(TFUN_Bytes *bytes, uint8_t byte);
@@ -56,7 +56,7 @@ typedef struct TFUN_CStrSlice {
 
 TFUN_CString TFUN_CString_new();
 TERR_Res TFUN_CString_initWithCapacity(TFUN_CString *string, uint32_t cap);
-void TFUN_CString_free(TFUN_CString *string);
+void TFUN_CString_deinit(TFUN_CString *string);
 void TFUN_CString_resetRetainCapacity(TFUN_CString *string);
 TERR_Res TFUN_CString_ensureCapacity(TFUN_CString *string, uint32_t cap);
 TERR_Res TFUN_CString_append(TFUN_CString *string, char ch);
@@ -88,7 +88,7 @@ typedef struct TFUN_WStrSlice {
 
 TFUN_WString TFUN_WString_new();
 TERR_Res TFUN_WString_initWithCapacity(TFUN_WString *string, uint32_t cap);
-void TFUN_WString_free(TFUN_WString *string);
+void TFUN_WString_deinit(TFUN_WString *string);
 void TFUN_WString_resetRetainCapacity(TFUN_WString *string);
 TERR_Res TFUN_WString_ensureCapacity(TFUN_WString *string, uint32_t cap);
 TERR_Res TFUN_WString_append(TFUN_WString *string, wchar_t ch);
