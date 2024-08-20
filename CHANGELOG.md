@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+#### Documentation
+
+- API, internal, and common developer docs in markdown format.
+- Naming conventions used in TEGA.
+
 ### Changed
 
 - **BREAKING**: `TE_` types moved to separate header "tega/terminal.h" and
