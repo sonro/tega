@@ -10,6 +10,7 @@ static void bytesNew();
 static void bytesInitWithCapacity();
 static void bytesResetRetainCapacity();
 static void bytesEnsureCapacity();
+static void bytesGet();
 
 void testTFUN_Bytes() {
     bytesDeinit();
@@ -17,6 +18,7 @@ void testTFUN_Bytes() {
     bytesInitWithCapacity();
     bytesResetRetainCapacity();
     bytesEnsureCapacity();
+    bytesGet();
 }
 
 static void bytesDeinit() {
@@ -154,4 +156,29 @@ static void bytesEnsureCapacity() {
 
     free(bytes.ptr);
     free(random_ptr);
+}
+
+static void bytesGet() {
+    TEST("TFUN_Bytes_get with 0 len is out of bounds");
+    TFUN_Bytes bytes = TFUN_Bytes_new();
+    TFUN_ByteRes res = TFUN_Bytes_get(&bytes, 0);
+    EXPECT(res.err == TERR_Res_out_of_bounds);
+
+    TEST("TFUN_Bytes_get with 1 len");
+    uint8_t buf[1] = {3};
+    bytes.ptr = buf;
+    bytes.len = 1;
+    bytes.cap = 1;
+    res = TFUN_Bytes_get(&bytes, 0);
+    EXPECT(res.err == TERR_Res_success);
+    EXPECT(res.byte == 3);
+
+    TEST("TFUN_Bytes_get with 2 len");
+    uint8_t buf_2[2] = {3, 5};
+    bytes.ptr = buf_2;
+    bytes.len = 2;
+    bytes.cap = 2;
+    res = TFUN_Bytes_get(&bytes, 1);
+    EXPECT(res.err == TERR_Res_success);
+    EXPECT(res.byte == 5);
 }

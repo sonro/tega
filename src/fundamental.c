@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -106,6 +107,7 @@ TERR_Res TFUN_Bytes_append(TFUN_Bytes *bytes, uint8_t b) {
     if (res != TERR_Res_success) {
         return res;
     }
+    assert(bytes->ptr != NULL);
     bytes->ptr[bytes->len] = b;
     bytes->len += 1;
     return TERR_Res_success;
@@ -116,6 +118,7 @@ TFUN_ByteRes TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index) {
     if (index >= bytes->len) {
         res.err = TERR_Res_out_of_bounds;
     } else {
+        assert(bytes->ptr != NULL);
         res.byte = bytes->ptr[index];
     }
     return res;
