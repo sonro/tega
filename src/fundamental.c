@@ -118,6 +118,14 @@ void TFUN_Bytes_appendUnsafe(TFUN_Bytes *bytes, uint8_t b) {
     bytes->len += 1;
 }
 
+void TFUN_Bytes_appendSliceUnsafe(TFUN_Bytes *bytes, TFUN_BSlice slice) {
+    uint32_t new_len = bytes->len + slice.len;
+    assert(new_len <= bytes->cap);
+    assert(bytes->ptr != NULL);
+    memcpy(bytes->ptr + bytes->len, slice.ptr, slice.len);
+    bytes->len = new_len;
+}
+
 TFUN_ByteRes TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index) {
     TFUN_ByteRes res = TFUN_ByteRes_new();
     if (index >= bytes->len) {

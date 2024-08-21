@@ -13,6 +13,7 @@ static void bytesEnsureCapacity();
 static void bytesGet();
 static void bytesAppend();
 static void bytesAppendUnsafe();
+static void bytesAppendSliceUnsafe();
 
 void testTFUN_Bytes() {
     bytesDeinit();
@@ -23,6 +24,7 @@ void testTFUN_Bytes() {
     bytesGet();
     bytesAppend();
     bytesAppendUnsafe();
+    bytesAppendSliceUnsafe();
 }
 
 static void bytesDeinit() {
@@ -207,4 +209,32 @@ static void bytesAppendUnsafe() {
     TFUN_Bytes_appendUnsafe(&bytes, 5);
     TEST_ArrayList(buf, 1, 1, bytes);
     EXPECT(bytes.ptr[0] == 5);
+}
+
+static void bytesAppendSliceUnsafe() {
+    TEST("TFUN_Bytes_appendSliceUnsafe empty slice");
+    {
+        uint8_t buf[5] = {0};
+        TFUN_Bytes bytes = {.ptr = buf, .len = 0, .cap = 5};
+        uint8_t slice_buf[5] = {0, 1, 2, 3, 4};
+        TFUN_BSlice slice = {.ptr = slice_buf, .len = 5};
+        TFUN_Bytes_appendSliceUnsafe(&bytes, slice);
+        TEST_ArrayList(buf, 5, 5, bytes);
+        for (uint32_t i = 0; i < 5; i++) {
+            EXPECT(bytes.ptr[i] == slice_buf[i]);
+        }
+    }
+
+    TEST("TFUN_Bytes_appendSliceUnsafe non-empty slice");
+    {
+        uint8_t buf[5] = {0, 1, 0, 0, 0};
+        TFUN_Bytes bytes = {.ptr = buf, .len = 2, .cap = 5};
+        uint8_t slice_buf[3] = {2, 3, 4};
+        TFUN_BSlice slice = {.ptr = slice_buf, .len = 3};
+        TFUN_Bytes_appendSliceUnsafe(&bytes, slice);
+        TEST_ArrayList(buf, 5, 5, bytes);
+        for (uint32_t i = 0; i < 5; i++) {
+            EXPECT(bytes.ptr[i] == i);
+        }
+    }
 }
