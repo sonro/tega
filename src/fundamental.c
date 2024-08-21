@@ -118,10 +118,20 @@ void TFUN_Bytes_appendUnsafe(TFUN_Bytes *bytes, uint8_t b) {
     bytes->len += 1;
 }
 
+TERR_Res TFUN_Bytes_appendSlice(TFUN_Bytes *bytes, TFUN_BSlice slice) {
+    TERR_Res res = TFUN_Bytes_ensureCapacity(bytes, bytes->len + slice.len);
+    if (res != TERR_Res_success) {
+        return res;
+    }
+    TFUN_Bytes_appendSliceUnsafe(bytes, slice);
+    return TERR_Res_success;
+}
+
 void TFUN_Bytes_appendSliceUnsafe(TFUN_Bytes *bytes, TFUN_BSlice slice) {
     uint32_t new_len = bytes->len + slice.len;
     assert(new_len <= bytes->cap);
     assert(bytes->ptr != NULL);
+    assert(slice.ptr != NULL);
     memcpy(bytes->ptr + bytes->len, slice.ptr, slice.len);
     bytes->len = new_len;
 }

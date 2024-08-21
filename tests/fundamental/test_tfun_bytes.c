@@ -13,6 +13,7 @@ static void bytesEnsureCapacity();
 static void bytesGet();
 static void bytesAppend();
 static void bytesAppendUnsafe();
+static void bytesAppendSlice();
 static void bytesAppendSliceUnsafe();
 
 void testTFUN_Bytes() {
@@ -24,6 +25,7 @@ void testTFUN_Bytes() {
     bytesGet();
     bytesAppend();
     bytesAppendUnsafe();
+    bytesAppendSlice();
     bytesAppendSliceUnsafe();
 }
 
@@ -209,6 +211,47 @@ static void bytesAppendUnsafe() {
     TFUN_Bytes_appendUnsafe(&bytes, 5);
     TEST_ArrayList(buf, 1, 1, bytes);
     EXPECT(bytes.ptr[0] == 5);
+}
+
+static void bytesAppendSlice() {
+    TEST("TFUN_Bytes_appendSlice 0 capacity 1 element");
+    {
+        TFUN_Bytes bytes = TFUN_Bytes_new();
+        uint8_t slice_buf[1] = {5};
+        TFUN_BSlice slice = {.ptr = slice_buf, .len = 1};
+        TERR_Res res = TFUN_Bytes_appendSlice(&bytes, slice);
+        ASSERT(res == TERR_Res_success);
+        TEST_ArrayList_notNull(1, 8, bytes);
+        EXPECT(bytes.ptr[0] == 5);
+        TFUN_Bytes_deinit(&bytes);
+    }
+
+    TEST("TFUN_Bytes_appendSlice 1 capacity 1 element");
+    {
+        TFUN_Bytes bytes = TFUN_Bytes_new();
+        ASSERT(TFUN_Bytes_initWithCapacity(&bytes, 1) == TERR_Res_success);
+        uint8_t slice_buf[1] = {7};
+        TFUN_BSlice slice = {.ptr = slice_buf, .len = 1};
+        TERR_Res res = TFUN_Bytes_appendSlice(&bytes, slice);
+        ASSERT(res == TERR_Res_success);
+        TEST_ArrayList_notNull(1, 1, bytes);
+        EXPECT(bytes.ptr[0] == 7);
+        TFUN_Bytes_deinit(&bytes);
+    }
+
+    TEST("TFUN_Bytes_appendSlice 1 capacity 2 elements");
+    {
+        TFUN_Bytes bytes = TFUN_Bytes_new();
+        ASSERT(TFUN_Bytes_initWithCapacity(&bytes, 1) == TERR_Res_success);
+        uint8_t slice_buf[2] = {7, 8};
+        TFUN_BSlice slice = {.ptr = slice_buf, .len = 2};
+        TERR_Res res = TFUN_Bytes_appendSlice(&bytes, slice);
+        ASSERT(res == TERR_Res_success);
+        TEST_ArrayList_notNull(2, 9, bytes);
+        EXPECT(bytes.ptr[0] == 7);
+        EXPECT(bytes.ptr[1] == 8);
+        TFUN_Bytes_deinit(&bytes);
+    }
 }
 
 static void bytesAppendSliceUnsafe() {
