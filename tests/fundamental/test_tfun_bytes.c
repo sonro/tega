@@ -11,6 +11,7 @@ static void bytesInitWithCapacity();
 static void bytesResetRetainCapacity();
 static void bytesEnsureCapacity();
 static void bytesGet();
+static void bytesAppend();
 
 void testTFUN_Bytes() {
     bytesDeinit();
@@ -19,6 +20,7 @@ void testTFUN_Bytes() {
     bytesResetRetainCapacity();
     bytesEnsureCapacity();
     bytesGet();
+    bytesAppend();
 }
 
 static void bytesDeinit() {
@@ -181,4 +183,54 @@ static void bytesGet() {
     res = TFUN_Bytes_get(&bytes, 1);
     EXPECT(res.err == TERR_Res_success);
     EXPECT(res.byte == 5);
+}
+
+static void bytesAppend() {
+    TEST("TFUN_Bytes_append with 0 capacity");
+    TFUN_Bytes bytes = TFUN_Bytes_new();
+    TERR_Res res = TFUN_Bytes_append(&bytes, 0);
+    ASSERT(res == TERR_Res_success);
+    EXPECT(bytes.ptr != NULL);
+    EXPECT(bytes.len == 1);
+    EXPECT(bytes.cap == 8);
+
+    TFUN_Bytes_deinit(&bytes);
+
+    TEST("TFUN_Bytes_append with 1 capacity");
+    bytes = TFUN_Bytes_new();
+    bytes.cap = 1;
+    bytes.ptr = calloc(1, sizeof(uint8_t));
+    res = TFUN_Bytes_append(&bytes, 1);
+    ASSERT(res == TERR_Res_success);
+    EXPECT(bytes.ptr != NULL);
+    EXPECT(bytes.len == 1);
+    EXPECT(bytes.cap == 1);
+
+    TFUN_Bytes_deinit(&bytes);
+
+    TEST("TFUN_Bytes_append with full capacity");
+    bytes = TFUN_Bytes_new();
+    bytes.cap = 8;
+    bytes.len = 8;
+    res = TFUN_Bytes_append(&bytes, 1);
+    ASSERT(res == TERR_Res_success);
+    EXPECT(bytes.ptr != NULL);
+    EXPECT(bytes.len == 9);
+    EXPECT(bytes.cap == 20);
+
+    TFUN_Bytes_deinit(&bytes);
+
+    TEST("TFUN_Bytes_append empty then get");
+    bytes = TFUN_Bytes_new();
+    res = TFUN_Bytes_append(&bytes, 1);
+    ASSERT(res == TERR_Res_success);
+    EXPECT(bytes.ptr != NULL);
+    EXPECT(bytes.len == 1);
+    EXPECT(bytes.cap == 8);
+    EXPECT(bytes.ptr[0] == 1);
+    TFUN_ByteRes byte_res = TFUN_Bytes_get(&bytes, 0);
+    ASSERT(byte_res.err == TERR_Res_success);
+    EXPECT(byte_res.byte == 1);
+
+    TFUN_Bytes_deinit(&bytes);
 }
