@@ -107,10 +107,15 @@ TERR_Res TFUN_Bytes_append(TFUN_Bytes *bytes, uint8_t b) {
     if (res != TERR_Res_success) {
         return res;
     }
+    TFUN_Bytes_appendUnsafe(bytes, b);
+    return TERR_Res_success;
+}
+
+void TFUN_Bytes_appendUnsafe(TFUN_Bytes *bytes, uint8_t b) {
     assert(bytes->ptr != NULL);
+    assert(bytes->len < bytes->cap);
     bytes->ptr[bytes->len] = b;
     bytes->len += 1;
-    return TERR_Res_success;
 }
 
 TFUN_ByteRes TFUN_Bytes_get(const TFUN_Bytes *bytes, uint32_t index) {

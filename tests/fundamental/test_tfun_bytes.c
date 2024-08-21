@@ -12,6 +12,7 @@ static void bytesResetRetainCapacity();
 static void bytesEnsureCapacity();
 static void bytesGet();
 static void bytesAppend();
+static void bytesAppendUnsafe();
 
 void testTFUN_Bytes() {
     bytesDeinit();
@@ -21,6 +22,7 @@ void testTFUN_Bytes() {
     bytesEnsureCapacity();
     bytesGet();
     bytesAppend();
+    bytesAppendUnsafe();
 }
 
 static void bytesDeinit() {
@@ -196,4 +198,13 @@ static void bytesAppend() {
     TEST_ByteRes(1, byte_res);
 
     TFUN_Bytes_deinit(&bytes);
+}
+
+static void bytesAppendUnsafe() {
+    TEST("TFUN_Bytes_appendUnsafe");
+    uint8_t buf[1] = {0};
+    TFUN_Bytes bytes = {.ptr = buf, .len = 0, .cap = 1};
+    TFUN_Bytes_appendUnsafe(&bytes, 5);
+    TEST_ArrayList(buf, 1, 1, bytes);
+    EXPECT(bytes.ptr[0] == 5);
 }
